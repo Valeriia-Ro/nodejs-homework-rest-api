@@ -7,7 +7,7 @@ const removeContactById = require("./removeContactById");
 module.exports = {
   listContacts,
   getContactById,
-  add,
+  addInMOdel,
   updateContactById,
   removeContactById,
 };

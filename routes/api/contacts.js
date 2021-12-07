@@ -1,20 +1,38 @@
 const express = require("express");
 const router = express.Router();
-const { ctrlWrapper } = require("../../middlewares/ctrlWrapper");
-const { validation } = require("../../middlewares/validation");
 const { contactSchema } = require("../../schema/contactSchema");
-const { ctrl } = require("../../controllers/contacts/index");
+const getAll = require("../../controllers/contacts/getAll");
+const getById = require("../../controllers/contacts/getById");
+const add = require("../../controllers/contacts/add");
+const updateById = require("../../controllers/contacts/updateById");
+const removeById = require("../../controllers/contacts/removeById");
 
-const validateMiddleware = validation(contactSchema);
+const ctrlWrapper = (ctrl) => {
+  return async (req, res, next) => {
+    try {
+      await ctrl(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  };
+};
+const validateMiddleware = (req, res, next) => {
+  const { error } = contactSchema.validate(req.body);
+  if (error) {
+    error.status = 400;
+    next(error);
+  }
+  next();
+};
 
-router.get("/", ctrlWrapper(ctrl.getAll));
+router.get("/", ctrlWrapper(getAll));
 
-router.get("/:id", ctrlWrapper(ctrl.getById));
+router.get("/:id", ctrlWrapper(getById));
 
-router.post("/", validateMiddleware, ctrlWrapper(ctrl.add));
+router.post("/", validateMiddleware, ctrlWrapper(add));
 
-router.put("/:id", validation(contactSchema), ctrlWrapper(ctrl.updateById));
+router.put("/:id", validateMiddleware, ctrlWrapper(updateById));
 
-router.delete("/:id", ctrlWrapper(ctrl.removeById));
+router.delete("/:id", ctrlWrapper(removeById));
 
 module.exports = router;
