@@ -1,7 +1,7 @@
-const addInMOdel = require("../../model/add");
+const contactsOperations  = require("../../model");
 
 const add = async (req, res) => {
-  const result = await addInMOdel(req.body);
+  const result = await contactsOperations.addInMOdel(req.body);
   res.status(201).json({
     status: "success",
     code: 201,
