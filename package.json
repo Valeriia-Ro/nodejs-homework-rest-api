@@ -15,7 +15,8 @@
     "http-errors": "^1.8.1",
     "joi": "^17.5.0",
     "morgan": "1.10.0",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "validate": "^5.1.0"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
