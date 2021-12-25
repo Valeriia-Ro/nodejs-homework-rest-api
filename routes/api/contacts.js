@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { contactSchema } = require("../../validationSchemas");
+const { joiSchema, updateStatusJoiSchema } = require("../../models/contacts");
 const { ctrlWrapper, validation } = require("../../middlewares");
 const {
   getAll,
@@ -8,18 +8,25 @@ const {
   add,
   updateById,
   removeById,
+  updateStatus,
 } = require("../../controllers/contacts");
 
 console.log(validation);
-console.log(validation(contactSchema));
+console.log(validation(joiSchema));
 
 router.get("/", ctrlWrapper(getAll));
 
 router.get("/:id", ctrlWrapper(getById));
 
-router.post("/", validation(contactSchema), ctrlWrapper(add));
+router.post("/", validation(joiSchema), ctrlWrapper(add));
 
-router.put("/:id", ctrlWrapper(updateById));
+router.put("/:id", validation(joiSchema), ctrlWrapper(updateById));
+
+router.patch(
+  "/:id/favorite",
+  validation(updateStatusJoiSchema),
+  ctrlWrapper(updateStatus)
+);
 
 router.delete("/:id", ctrlWrapper(removeById));
 
