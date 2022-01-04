@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { joiSchema, updateStatusJoiSchema } = require("../../models/contacts");
-const { ctrlWrapper, validation } = require("../../middlewares");
+const { authCurrent, ctrlWrapper, validation } = require("../../middlewares");
 const {
   getAll,
   getById,
@@ -18,7 +18,7 @@ router.get("/", ctrlWrapper(getAll));
 
 router.get("/:id", ctrlWrapper(getById));
 
-router.post("/", validation(joiSchema), ctrlWrapper(add));
+router.post("/", authCurrent, validation(joiSchema), ctrlWrapper(add));
 
 router.put("/:id", validation(joiSchema), ctrlWrapper(updateById));
 

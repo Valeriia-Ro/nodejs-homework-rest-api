@@ -22,4 +22,4 @@ const updateStatus = async (req, res) => {
   });
 };
 
-module.exports = updateById;
+module.exports = updateStatus;

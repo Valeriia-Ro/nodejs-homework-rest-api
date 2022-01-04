@@ -1,3 +1,4 @@
 const ctrlWrapper = require("./ctrlWrapper");
 const validation = require("./validation");
-module.exports = { ctrlWrapper, validation };
+const authCurrent = require("./authCurrent");
+module.exports = { ctrlWrapper, validation, authCurrent };
