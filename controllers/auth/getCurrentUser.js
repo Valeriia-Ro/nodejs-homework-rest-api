@@ -1,8 +1,7 @@
 const { User } = require("../../models");
 
 const getCurrentUser = async (req, res) => {
-  const { _id, email, subscription } = req.user;
-  await Contact.find({ owner: _id });
+  const { email, subscription } = req.user;
   res.json({
     status: "success",
     code: 200,

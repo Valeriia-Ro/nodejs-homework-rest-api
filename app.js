@@ -23,4 +23,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
 });
 
+app.post("/api/users", function (req, res) {
+  req.setTimeout(500000);
+});
+
 module.exports = app;
